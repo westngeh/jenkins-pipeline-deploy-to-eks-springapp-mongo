@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springapp
+  template:
+    metadata:
+      name: springapp
+      labels:
+        app: springapp
+    spec:
+      containers: 
+      - name: springappcontainer
+        image: mylandmarktech/spring-boot-mongo
+        resources:
+          requests:
+            memory: "150Mi"
+            cpu: "300m"
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 8080
+        env: 
+        - name: MONGO_DB_HOSTNAME
+          value: mongosvc
+        - name: MONGO_DB_USERNAME
+          value: dbuser
+        - name: MONGO_DB_PASSWORD
+          value: dbuser@123
+---
+# Node Port Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: springappsvc
+spec:
+  selector:
+    app: springapp
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      name: myapp
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongocontainer
+        image: mongo
+        ports:
+        - containerPort: 27017
+        env: 
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: dbuser
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: dbuser@123
+        volumeMounts:
+        - name: mongodbhostPathvol
+          mountPath: /data/db
+      volumes:
+      - name: mongodbhostPathvol
+        mountPath: /mongodata
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongosvc
+spec:
+  type: ClusterIP
+  selector:
+    app: mongo
+  ports:
+  - port: 27017
+    targetPort: 27017
+        
