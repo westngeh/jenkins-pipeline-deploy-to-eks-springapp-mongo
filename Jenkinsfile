@@ -22,7 +22,8 @@ pipeline {
                 script {
                     dir('kubernetes') {
                         sh "aws eks update-kubeconfig --name myapp-eks-cluster"
-                        sh "kubectl apply -f persistentvolume.yaml
+                        sh "kubernetes/aws-ebs-storage-class.yaml"
+                        sh "kubernetes/ebs-pvc.yaml"
                         sh "kubectl apply -f springapp-mongo-service.yaml"
                         }
                     }
