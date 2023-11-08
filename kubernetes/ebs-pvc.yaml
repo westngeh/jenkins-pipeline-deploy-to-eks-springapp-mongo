@@ -8,4 +8,4 @@ spec:
   storageClassName: aws-ebs-sc  # Reference the AWS EBS storage class
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
