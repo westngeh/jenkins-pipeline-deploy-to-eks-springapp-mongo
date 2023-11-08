@@ -9,11 +9,10 @@ spec:
       app: springapp
   template:
     metadata:
-      name: springapp
       labels:
         app: springapp
     spec:
-      containers: 
+      containers:
       - name: springappcontainer
         image: mylandmarktech/spring-boot-mongo
         resources:
@@ -25,7 +24,7 @@ spec:
             cpu: "1000m"
         ports:
         - containerPort: 8080
-        env: 
+        env:
         - name: MONGO_DB_HOSTNAME
           value: mongosvc
         - name: MONGO_DB_USERNAME
@@ -41,22 +40,23 @@ metadata:
 spec:
   selector:
     app: springapp
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 80
     targetPort: 8080
 ---
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: StatefulSet
 metadata:
   name: mongodb
 spec:
+  serviceName: "mongosvc"
+  replicas: 1
   selector:
     matchLabels:
       app: mongo
   template:
     metadata:
-      name: myapp
       labels:
         app: mongo
     spec:
@@ -65,27 +65,33 @@ spec:
         image: mongo
         ports:
         - containerPort: 27017
-        env: 
+        env:
         - name: MONGO_INITDB_ROOT_USERNAME
           value: dbuser
         - name: MONGO_INITDB_ROOT_PASSWORD
           value: dbuser@123
         volumeMounts:
-        - name: mongodbhostPathvol
+        - name: mongodb-hostpath-vol
           mountPath: /data/db
-      volumes:
-      - name: mongodbhostPathvol
-        mountPath: /mongodata
+  volumeClaimTemplates:
+  - metadata:
+      name: mongodb-hostpath-vol
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: aws-ebs-sc
+      resources:
+        requests:
+          storage: 10Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mongosvc
 spec:
-  type: ClusterIP
   selector:
     app: mongo
   ports:
   - port: 27017
     targetPort: 27017
+
         
