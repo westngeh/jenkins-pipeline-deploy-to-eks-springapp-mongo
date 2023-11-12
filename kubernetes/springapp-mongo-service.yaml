@@ -1,4 +1,51 @@
 apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springapp
+  template:
+    metadata:
+      labels:
+        app: springapp
+    spec:
+      containers:
+      - name: springappcontainer
+        image: mylandmarktech/spring-boot-mongo
+        resources:
+          requests:
+            memory: "150Mi"
+            cpu: "300m"
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MONGO_DB_HOSTNAME
+          value: mongosvc
+        - name: MONGO_DB_USERNAME
+          value: dbuser
+        - name: MONGO_DB_PASSWORD
+          value: dbuser@123
+---
+# Node Port Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: springappsvc
+spec:
+  selector:
+    app: springapp
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+---
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongodb
@@ -30,5 +77,16 @@ spec:
   - name: mongodb-hostpath-vol
       persistentVolumeClaim:
         claimName: ebs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongosvc
+spec:
+  selector:
+    app: mongo
+  ports:
+  - port: 27017
+    targetPort: 27017
 
         
