@@ -31,6 +31,7 @@ spec:
           value: dbuser
         - name: MONGO_DB_PASSWORD
           value: dbuser@123
+
 ---
 # Node Port Service
 apiVersion: v1
