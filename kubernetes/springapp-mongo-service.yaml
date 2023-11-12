@@ -74,10 +74,15 @@ spec:
         volumeMounts:
         - name: mongodb-hostpath-vol
           mountPath: /data/db
-  volumes:
-  - name: mongodb-hostpath-vol
-      persistentVolumeClaim:
-        claimName: ebs-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: mongodb-hostpath-vol
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: aws-ebs-sc
+      resources:
+        requests:
+          storage: 100Mi
 ---
 apiVersion: v1
 kind: Service
