@@ -4,8 +4,8 @@ metadata:
   name: ebs-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
-  storageClassName: aws-ebs-sc  # Reference the AWS EBS storage class
+  - ReadWriteOnce
+  storageClassName: aws-ebs-sc # Reference the AWS EBS storage class
   resources:
     requests:
-      storage: 10Gi
+      storage: 100Mi
