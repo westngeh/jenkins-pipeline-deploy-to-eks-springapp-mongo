@@ -28,9 +28,9 @@ spec:
         - name: MONGO_DB_HOSTNAME
           value: mongosvc
         - name: MONGO_DB_USERNAME
-          value: dbuser
+          value: "dbuser"
         - name: MONGO_DB_PASSWORD
-          value: dbuser@123
+          value: "dbuser@123"
 ---
 # Node Port Service
 apiVersion: v1
