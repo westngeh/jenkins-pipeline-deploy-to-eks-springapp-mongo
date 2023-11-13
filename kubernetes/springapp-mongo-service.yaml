@@ -68,9 +68,9 @@ spec:
         - containerPort: 27017
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
-          value: dbuser
+          value: "dbuser"
         - name: MONGO_INITDB_ROOT_PASSWORD
-          value: dbuser@123
+          value: "dbuser@123"
         volumeMounts:
         - name: mongodb-hostpath-vol
           mountPath: /data/db
