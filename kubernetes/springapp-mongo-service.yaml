@@ -28,10 +28,9 @@ spec:
         - name: MONGO_DB_HOSTNAME
           value: mongosvc
         - name: MONGO_DB_USERNAME
-          value: "dbuser"  # Enclose dbuser in quotes
+          value: dbuser
         - name: MONGO_DB_PASSWORD
-          value: "dbuser@123"  # Enclose dbuser@123 in quotes
-
+          value: dbuser@123
 ---
 # Node Port Service
 apiVersion: v1
