@@ -74,8 +74,11 @@ spec:
         volumeMounts:
         - name: mongodb-hostpath-vol
           mountPath: /data/db
-  volumes:
-  - name: mongodb-hostpath-vol
-    persistentVolumeClaim:
-      claimName: ebs-pvc
-
+  volumeClaimTemplates:
+  - metadata:
+      name: mongodb-hostpath-vol
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi  # Adjust the storage size as needed
