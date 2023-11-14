@@ -51,7 +51,7 @@ kind: StatefulSet
 metadata:
   name: mongodb
 spec:
-  serviceName: mongosvc
+  serviceName: "mongosvc"
   replicas: 1
   selector:
     matchLabels:
@@ -62,23 +62,18 @@ spec:
         app: mongo
     spec:
       containers:
-        - name: mongocontainer
-          image: mongo
-          ports:
-            - containerPort: 27017
-          env:
-            - name: MONGO_INITDB_ROOT_USERNAME
-              value: dbuser
-            - name: MONGO_INITDB_ROOT_PASSWORD
-              value: dbuser@123
-          volumeMounts:
-            - name: mongodb-hostpath-vol
-              mountPath: /data/db
-  volumes:
-    - name: mongodb-hostpath-vol
-      persistentVolumeClaim:
-        claimName: ebs-pvc
-
+      - name: mongocontainer
+        image: mongo
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: "dbuser"
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: "dbuser@123"
+        volumeMounts:
+        - name: mongodb-hostpath-vol
+          mountPath: /data/db
 ---
 apiVersion: v1
 kind: Service
@@ -88,8 +83,5 @@ spec:
   selector:
     app: mongo
   ports:
-    - port: 27017
-      targetPort: 27017
-
-
-        
+  - port: 27017
+    targetPort: 27017
