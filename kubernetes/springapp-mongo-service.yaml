@@ -59,7 +59,7 @@ spec:
   template:
     metadata:
       labels:
-        app: mongo
+        app: springapp
     spec:
       containers:
       - name: mongocontainer
