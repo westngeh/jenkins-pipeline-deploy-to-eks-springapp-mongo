@@ -55,7 +55,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongo
+      app: springapp
   template:
     metadata:
       labels:
@@ -74,11 +74,7 @@ spec:
         volumeMounts:
         - name: mongodb-hostpath-vol
           mountPath: /data/db
-  volumeClaimTemplates:
-  - metadata:
-      name: mongodb-hostpath-vol
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 100Mi  # Adjust the storage size as needed
+  volumes:
+  - name: mongodb-hostpath-vol
+      persistentVolumeClaim:
+        claimName: ebs-pvc
