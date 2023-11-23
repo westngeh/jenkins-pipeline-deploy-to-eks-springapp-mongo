@@ -76,8 +76,8 @@ spec:
           mountPath: /data/db
   volumes:
   - name: mongodb-hostpath-vol
-      persistentVolumeClaim:
-        claimName: ebs-pvc
+    persistentVolumeClaim:
+      claimName: ebs-pvc
 ---
 apiVersion: v1
 kind: Service
