@@ -10,5 +10,5 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: gp2
   awsElasticBlockStore:
-    volumeID: vol-03463e5e972c0adaf
+    volumeID: vol-064e3f3f59e4dc8d0
     fsType: ext4  # Adjust the file system type as needed
