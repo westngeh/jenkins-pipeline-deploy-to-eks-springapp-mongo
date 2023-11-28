@@ -5,7 +5,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: aws-ebs-sc  # Reference the AWS EBS storage class
+  storageClassName: aws-ebs-sc
   resources:
     requests:
       storage: 100Mi

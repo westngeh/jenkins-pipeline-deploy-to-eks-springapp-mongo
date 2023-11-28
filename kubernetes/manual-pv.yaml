@@ -4,11 +4,11 @@ metadata:
   name: manual-pv
 spec:
   capacity:
-    storage: 1Gi
+    storage: 20Gi  # Adjust based on your actual disk space
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: gp2
   awsElasticBlockStore:
-    volumeID: vol-064e3f3f59e4dc8d0
+    volumeID: vol-064e3f3f59e4dc8d0  # Replace with your actual volume ID
     fsType: ext4  # Adjust the file system type as needed
