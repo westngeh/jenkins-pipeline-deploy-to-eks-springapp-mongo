@@ -51,15 +51,15 @@ kind: StatefulSet
 metadata:
   name: mongodb
 spec:
-  serviceName: "mongosvc"
+  serviceName: "mongodb-headless"
   replicas: 1
   selector:
     matchLabels:
-      app: springapp
+      app: mongodb
   template:
     metadata:
       labels:
-        app: springapp
+        app: mongodb
     spec:
       containers:
       - name: mongocontainer
@@ -89,11 +89,23 @@ metadata:
   name: mongosvc
 spec:
   selector:
-    app: springapp
+    app: mongodb
   type: ClusterIP
   ports:
     - name: mongosvc-port
       port: 27017  # Assuming this is the port your MongoDB is using
       protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-headless
+spec:
+  clusterIP: None
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
 
   
