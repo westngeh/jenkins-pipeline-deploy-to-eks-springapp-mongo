@@ -72,11 +72,11 @@ spec:
         - name: MONGO_INITDB_ROOT_PASSWORD
           value: dbuser@123
         volumeMounts:
-        - name: mongodb-hostpath-vol
+        - name: mongodb-pvc
           mountPath: /data/db
   volumeClaimTemplates:
   - metadata:
-      name: mongodb-hostpath-vol
+      name: mongodb-pvc
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
