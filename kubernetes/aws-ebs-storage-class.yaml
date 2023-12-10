@@ -1,8 +1,8 @@
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: aws-ebs-sc
-provisioner: kubernetes.io/aws-ebs
-parameters:
-  type: gp2  # Define the EBS volume type (e.g., gp2, io1, st1, sc1)
-reclaimPolicy: Retain 
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: aws-ebs-sc
+# provisioner: kubernetes.io/aws-ebs
+# parameters:
+#   type: gp2  # Define the EBS volume type (e.g., gp2, io1, st1, sc1)
+# reclaimPolicy: Retain 
