@@ -17,7 +17,7 @@ spec:
           image: mylandmarktech/spring-boot-mongo
           resources:
             requests:
-              memory: 150Mi
+              memory: 200Mi
               cpu: 300m
             limits:
               memory: 512Mi
