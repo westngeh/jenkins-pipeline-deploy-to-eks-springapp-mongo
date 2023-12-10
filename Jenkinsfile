@@ -22,8 +22,7 @@ pipeline {
                 script {
                     dir('kubernetes') {
                         sh "aws eks update-kubeconfig --name myapp-eks-cluster"
-                        sh "kubectl apply -f aws-ebs-storage-class.yaml"
-                        sh "kubectl apply -f updated-ebs-pvc.yaml"
+                        sh 'kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"'
                         sh "kubectl apply -f springapp-mongo-service.yaml"
                    }
                 }
