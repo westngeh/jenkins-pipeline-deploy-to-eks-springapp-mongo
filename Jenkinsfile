@@ -23,7 +23,7 @@ pipeline {
                     dir('kubernetes') {
                         sh "aws eks update-kubeconfig --name myapp-eks-cluster"
                         sh 'kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"'
-                        sh "kubectl replace --force -f springapp-mongo-service.yaml"
+                        sh "kubectl apply -f springapp-mongo-service.yaml"
                    }
                 }
         
