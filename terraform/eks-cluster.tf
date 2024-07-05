@@ -38,8 +38,7 @@ module "eks" {
       }
 
       update_config = {
-        max_unavailable            = 1
-        max_unavailable_percentage = 50
+        max_unavailable = 1  # Specify only one of max_unavailable or max_unavailable_percentage
       }
     }
   }
