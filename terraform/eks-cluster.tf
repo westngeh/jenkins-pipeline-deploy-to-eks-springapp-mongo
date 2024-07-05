@@ -14,13 +14,33 @@ module "eks" {
         application = "myapp"
     }
 
-    eks_managed_node_groups = {
-        dev = {
-            min_size = 1
-            max_size = 3
-            desired_size = 3
+  eks_managed_node_groups = {
+    dev = {
+      min_size     = 1
+      max_size     = 3
+      desired_size = 3
 
-            instance_types = ["t3.medium"]
-        }
+      instance_types = ["t3.medium"]
+
+      additional_tags = {
+        Name = "myapp-eks-node"
+      }
+
+      launch_template = {
+        id      = "lt-0a3c2461eeb261903" # Ensure this is correct and valid
+        version = "1"
+      }
+
+      scaling_config = {
+        min_size     = 1
+        max_size     = 3
+        desired_size = 3
+      }
+
+      update_config = {
+        max_unavailable            = 1
+        max_unavailable_percentage = 50
+      }
     }
+  }
 }
