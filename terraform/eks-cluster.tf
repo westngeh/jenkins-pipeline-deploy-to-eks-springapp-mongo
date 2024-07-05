@@ -33,8 +33,8 @@ module "eks" {
 
       scaling_config = {
         min_size     = 1
-        max_size     = 3
-        desired_size = 3
+        max_size     = 2
+        desired_size = 1
       }
 
       update_config = {
