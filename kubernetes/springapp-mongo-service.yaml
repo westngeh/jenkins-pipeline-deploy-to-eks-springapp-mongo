@@ -107,5 +107,3 @@ spec:
   ports:
     - protocol: TCP
       port: 27017
-
-  
